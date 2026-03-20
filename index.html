@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Dollar, One Human — Harlem's Story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1714;
+    --paper: #f5f0e8;
+    --warm: #c8a96e;
+    --rust: #8b3a2a;
+    --muted: #6b6459;
+    --line: rgba(26,23,20,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+
+  .eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .tagline {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 2rem;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    padding: 0 1rem;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .progress-bar {
+    height: 4px;
+    background: var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--rust);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* ── DONATE BUTTONS ── */
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+    border: none;
+  }
+
+  .btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .btn-primary {
+    background: var(--rust);
+    color: #fff;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+  }
+
+  .small-note {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--warm);
+    margin: 3.5rem auto;
+  }
+
+  /* ── MAIN CONTENT ── */
+  main {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 strong {
+    font-weight: 700;
+  }
+
+  p {
+    margin-bottom: 1.4rem;
+    font-size: 1rem;
+    color: #2e2b27;
+  }
+
+  .pull-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.3rem, 3vw, 1.7rem);
+    line-height: 1.4;
+    color: var(--rust);
+    border-left: 2px solid var(--rust);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 2.5rem 0;
+  }
+
+  /* ── PHASES TABLE ── */
+  .phases {
+    margin: 3rem 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .phase-row {
+    display: grid;
+    grid-template-columns: 2rem 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .phase-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .phase-goal {
+    font-size: 0.9rem;
+  }
+
+  .phase-status {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 1px;
+  }
+
+  .status-open {
+    background: var(--rust);
+    color: #fff;
+  }
+
+  .status-next {
+    border: 1px solid var(--line);
+    color: var(--muted);
+  }
+
+  /* ── FAQ ── */
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    padding: 1.2rem 0;
+  }
+
+  .faq-q {
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-a {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  /* ── FOOTER CTA ── */
+  .footer-cta {
+    text-align: center;
+    padding: 4rem 2rem;
+    border-top: 1px solid var(--line);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .footer-cta h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .footer-cta p {
+    color: rgba(245,240,232,0.6);
+    max-width: 420px;
+    margin: 0 auto 2rem;
+    font-size: 0.9rem;
+  }
+
+  .footer-cta .btn-primary {
+    background: var(--warm);
+    color: var(--ink);
+  }
+
+  .footer-cta .btn-secondary {
+    border-color: rgba(245,240,232,0.3);
+    color: var(--paper);
+  }
+
+  .fine-print {
+    margin-top: 2rem;
+    font-size: 0.72rem;
+    color: rgba(245,240,232,0.35);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── PHOTOS ── */
+  .photo-block {
+    margin: 2.5rem -1rem;
+  }
+
+  .photo-block img {
+    width: 100%;
+    display: block;
+    border-radius: 2px;
+    filter: grayscale(15%);
+  }
+
+  .photo-caption {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 0.6rem;
+    padding: 0 1rem;
+  }
+
+  .photo-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin: 2.5rem -1rem;
+  }
+
+  .photo-pair figure {
+    overflow: hidden;
+    border-radius: 2px;
+  }
+
+  .photo-pair img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(15%);
+  }
+
+  .photo-pair .photo-caption {
+    padding: 0;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .delay-1 { animation-delay: 0.15s; }
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.45s; }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <p class="eyebrow fade-up">A social experiment · Est. 2026</p>
+  <h1 class="fade-up delay-1">One Dollar,<br><em>One Human.</em></h1>
+  <p class="tagline fade-up delay-2">Can the internet trust a stranger with $1?<br>This is not a charity. It's a question.</p>
+
+  <div class="progress-wrap fade-up delay-3">
+    <div class="progress-label">
+      <span>Phase 1 — 100 people</span>
+      <span id="count">0 so far</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="bar"></div>
+    </div>
+  </div>
+
+  <div class="cta-row fade-up delay-3">
+    <a href="https://paypal.me/YOURLINK" class="btn btn-primary" target="_blank">
+      Send $1 via PayPal
+    </a>
+    <a href="#bitcoin" class="btn btn-secondary">
+      Bitcoin wallet ↓
+    </a>
+  </div>
+  <p class="small-note">100% transparent · No middleman · Real person</p>
+</header>
+
+<!-- ── STORY ── -->
+<main>
+
+  <div class="section-label">The story</div>
+
+  <h2>I am not asking you<br><strong>to save me.</strong></h2>
+
+  <div class="photo-block">
+    <img src="images/porto-hoje.jpg" alt="Harlem at the port, Vila Velha, Brazil">
+    <p class="photo-caption">Port of Vila Velha · Brazil · 2023</p>
+  </div>
+
+  <p>My name is Harlem Brandemburg. I'm 45 years old, Brazilian, and I work the night shift as a heavy machinery operator at a port. I have a son named Rian — 19 years old, studying Workplace Safety at a federal institute by day and Web Programming at night. He is my reason for still being here.</p>
+
+  <p>I need to tell you something before you decide whether to trust me with a dollar. Not to gain your sympathy — but because I don't have the right to bury my own story.</p>
+
+  <p>In 2019, I lost my son Kauan. He was 7 years old. He had a rare vascular tumor called gigantic lymphohemangioma — treated at the only hospital in Brazil equipped to handle it. He fought from his very first days. I spent every cent of my severance, quit my engineering degree, and made constant trips to São Paulo for treatment — while keeping our family rooted in Vitória, where our support network was. I made the choices a father makes.</p>
+
+  <p>He didn't make it. He was buried on October 23, 2019 — my 39th birthday.</p>
+
+  <div class="photo-pair">
+    <figure>
+      <img src="images/kauan-carro.jpg" alt="Harlem and Kauan in the car, 2019">
+      <p class="photo-caption">Kauan · September 2019</p>
+    </figure>
+    <figure>
+      <img src="images/uti-costas.jpg" alt="Harlem standing at Kauan's hospital bed">
+      <p class="photo-caption">A.C. Camargo · October 2019</p>
+    </figure>
+  </div>
+
+  <div class="pull-quote">
+    "On my birthday, destiny gave me the worst gift a father can receive. A mission I could not walk away from, no matter how much it hurt."
+  </div>
+
+  <div class="pull-quote">
+    "It didn't happen all at once. Over four years, I lost my job, my son, my marriage, and the house I had built with my own hands — on land that was never mine to keep."
+  </div>
+
+  <p>I fell into a silent depression. The kind nobody sees. I used every credit I had left to pay for a psychologist, a psychiatrist, and medication — during a global pandemic, alone, with no income. I survived it — not quickly, not easily — but I did.</p>
+
+  <div class="photo-block">
+    <img src="images/rio-2020.jpg" alt="Harlem by the river, 2020">
+    <p class="photo-caption">Vitória · December 2020 · One day after</p>
+  </div>
+
+  <p>What pulled me back was Rian. A son I discovered I had in 2018 — while Kauan was still fighting. He is now 19, studying at a federal institute by day and learning to code at night. He came to live with me in 2024. I look at him and I see purpose. I see a second chance I did not expect.</p>
+
+  <p>Today I'm enrolled in Accounting. I work nights at the port. But the company demobilized the operation — I've been at home for a month, and I know my income is ending. I'm trying to finish a degree, support my son, and not lose my home. All at once.</p>
+
+  <p>I am not a victim. I am a man in the middle of the crossing.</p>
+
+  <div class="photo-pair">
+    <figure>
+      <img src="images/livraria-rian.jpg" alt="Harlem and Rian at a bookstore">
+      <p class="photo-caption">Harlem &amp; Rian · 2024</p>
+    </figure>
+    <figure>
+      <img src="images/batismo.jpg" alt="Harlem baptized, December 2025">
+      <p class="photo-caption">Baptism · December 2025</p>
+    </figure>
+  </div>
+
+  <div class="pull-quote">
+    "I don't have the right to bury this. Everything I've lived is part of who I am."
+  </div>
+
+  <p>This is not a crowdfunding campaign. There's no reward, no product, no cause beyond a real life. The question is simple: <strong>can the internet trust a stranger with one dollar?</strong> I'm the stranger. You decide.</p>
+
+  <!-- PHASES -->
+  <div class="divider"></div>
+  <div class="section-label">Progress</div>
+  <h2>The experiment<br><strong>in three phases.</strong></h2>
+
+  <div class="phases">
+    <div class="phase-row">
+      <span class="phase-num">I</span>
+      <span class="phase-goal">100 people from 10 countries send $1</span>
+      <span class="phase-status status-open">Open</span>
+    </div>
+    <div class="phase-row">
+      <span class="phase-num">II</span>
+      <span class="phase-goal">1,000 people — does trust scale?</span>
+      <span class="phase-status status-next">Upcoming</span>
+    </div>
+    <div class="phase-row">
+      <span class="phase-num">III</span>
+      <span class="phase-goal">10,000 people — the answer</span>
+      <span class="phase-status status-next">Upcoming</span>
+    </div>
+  </div>
+
+  <!-- BITCOIN -->
+  <div class="divider" id="bitcoin"></div>
+  <div class="section-label">Payment</div>
+  <h2>Two ways<br><strong>to participate.</strong></h2>
+
+  <p><strong>PayPal</strong> — fastest, simplest. Click the button above. Every contribution is logged publicly.</p>
+
+  <p><strong>Bitcoin</strong> — for those who prefer it. Wallet address below. All transactions are on-chain and verifiable.</p>
+
+  <p style="font-family: monospace; font-size: 0.82rem; background: rgba(26,23,20,0.05); padding: 1rem; border-radius: 2px; word-break: break-all; color: var(--muted);">
+    [Bitcoin address — to be added]
+  </p>
+
+  <p>Everything received goes toward: rent, my son's education expenses, my university fees, and stabilizing a life that's been unstable for too long.</p>
+
+  <!-- FAQ -->
+  <div class="divider"></div>
+  <div class="section-label">Questions</div>
+  <h2>What you're<br><strong>probably wondering.</strong></h2>
+
+  <div class="faq-item">
+    <p class="faq-q">Is this real?</p>
+    <p class="faq-a">Yes. My name is Harlem Brandemburg. I live in Brazil. I have medical documentation of my son Kauan's treatment from 2013–2019. I'm willing to answer direct questions.</p>
+  </div>
+
+  <div class="faq-item">
+    <p class="faq-q">Where does the money go?</p>
+    <p class="faq-a">Rent, my son Rian's education costs, my university enrollment, and basic stability. I won't pretend otherwise.</p>
+  </div>
+
+  <div class="faq-item">
+    <p class="faq-q">Why $1?</p>
+    <p class="faq-a">Because the amount isn't the point. The act of trusting a stranger is. A dollar is small enough to be risk-free. That's the experiment.</p>
+  </div>
+
+  <div class="faq-item">
+    <p class="faq-q">What do I get?</p>
+    <p class="faq-a">Nothing material. You get to know whether you're the kind of person who trusts a stranger. Some people are. Some aren't. Both are honest answers.</p>
+  </div>
+
+  <div class="faq-item">
+    <p class="faq-q">How do I know this isn't a scam?</p>
+    <p class="faq-a">You don't — not with certainty. That's the whole point. I've shared my real name, my real story, and my real situation. The rest is up to you.</p>
+  </div>
+
+</main>
+
+<!-- ── FOOTER CTA ── -->
+<div class="footer-cta">
+  <h3>One dollar.<br>One decision.</h3>
+  <p>You've read the story. You know who I am. The question was always yours to answer.</p>
+  <div class="cta-row">
+    <a href="https://paypal.me/YOURLINK" class="btn btn-primary" target="_blank">
+      Send $1 — PayPal
+    </a>
+    <a href="#bitcoin" class="btn btn-secondary">
+      Bitcoin ↑
+    </a>
+  </div>
+  <p class="fine-print">Harlem Oliveira Brandemburg · Brazil · 2026 · All contributions public</p>
+</div>
+
+<script>
+  // Animate progress bar on load (placeholder — replace with real data)
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const bar = document.getElementById('bar');
+      const count = document.getElementById('count');
+      const current = 0; // Replace with real number
+      const goal = 100;
+      const pct = Math.min((current / goal) * 100, 100);
+      bar.style.width = pct + '%';
+      count.textContent = current + ' so far';
+    }, 400);
+  });
+</script>
+
+</body>
+</html>
